@@ -60,11 +60,21 @@ products.forEach((product) => {
 // use DOM to find the target page area
 document.querySelector(".js-products-grid").innerHTML = productsHTML;
 
+/**
+ when users click "Add to Cart" button, 
+ we update the cart list with proudctId and update the quantity
+ */
 document.querySelectorAll(".js-add-to-cart").forEach((button) => {
   button.addEventListener("click", () => {
     const productId = button.dataset.productId;
 
     let matchingItem;
+
+    /**
+     Loop through the items in cart to find if the current new productId,
+     if it's in the cart, we find the matchingItem, then we only 
+     need to update the quantity of that item
+     **/
 
     cart.forEach((item) => {
       if (productId === item.productId) {
@@ -80,6 +90,13 @@ document.querySelectorAll(".js-add-to-cart").forEach((button) => {
         quantity: 1,
       });
     }
-    console.log(cart);
+
+    // update the number of the cart icon in the website
+    let cartQuantity = 0;
+    cart.forEach((item) => {
+      cartQuantity += item.quantity;
+    });
+
+    document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
   });
 });
