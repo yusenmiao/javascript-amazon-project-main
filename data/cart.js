@@ -51,7 +51,7 @@ export function addToCart(productId) {
 }
 
 /**
- *
+ * Function: remove the item from cart list
  */
 export function removeFromCart(productId) {
   const newCart = [];
@@ -64,4 +64,17 @@ export function removeFromCart(productId) {
 
   cart = newCart;
   saveToStorage();
+}
+
+/**
+ * Function: calculate the cart quanatity
+ */
+
+export function calculateCartQuantity() {
+  let cartquantity = 0;
+
+  cart.forEach((cartItem) => {
+    cartquantity += cartItem.quantity;
+  });
+  return cartquantity;
 }

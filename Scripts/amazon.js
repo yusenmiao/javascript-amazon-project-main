@@ -1,4 +1,4 @@
-import { cart, addToCart } from "../data/cart.js";
+import { cart, addToCart, calculateCartQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
@@ -68,10 +68,7 @@ document.querySelector(".js-products-grid").innerHTML = productsHTML;
        website (top right corner)  */
 // sum up all the item's quantity
 function updateCartQuantity() {
-  let cartQuantity = 0;
-  cart.forEach((cartItem) => {
-    cartQuantity += cartItem.quantity;
-  });
+  const cartQuantity = calculateCartQuantity();
 
   // update the number of the cart icon in the website (top right corner)
   document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
@@ -115,6 +112,9 @@ function showAddedPopUpMessage(productId) {
   addedMessageTimeouts[productId] = timeoutId;
 }
 
+// when page loads, calcuate the cart quantity and display
+// it in the top right "cart icon"
+updateCartQuantity();
 /**
  when users click "Add to Cart" button, 
  we update the cart list with proudctId and update the quantity.
@@ -123,6 +123,7 @@ function showAddedPopUpMessage(productId) {
  "<button class="add-to-cart-button button-primary js-add-to-cart"
     data-product-id="${product.id}">"
  */
+
 document.querySelectorAll(".js-add-to-cart").forEach((button) => {
   button.addEventListener("click", () => {
     const productId = button.dataset.productId;
