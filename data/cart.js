@@ -78,3 +78,19 @@ export function calculateCartQuantity() {
   });
   return cartquantity;
 }
+
+/**
+ * Function: update cart quantity based on "update button"
+ */
+export function updateQuantity(productId, newQuantity) {
+  let matchingItem;
+
+  cart.forEach((cartItem) => {
+    if (cartItem.productId === productId) {
+      matchingItem = cartItem;
+    }
+  });
+  matchingItem.quantity = newQuantity;
+
+  saveToStorage();
+}
